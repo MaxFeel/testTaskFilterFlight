@@ -1,12 +1,21 @@
 package com.gridnine.testing;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoField;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface FlightFilter {
+public class FlightFilter {
+    private final List<FlightRule> flightRule = new ArrayList<>();
 
-    boolean checkFlight(Flight flight);
+    public void addRule(FlightRule flightFilter) {
+        flightRule.add(flightFilter);
+    }
+
+    public boolean makeRule(Flight flight) {
+        for (int i = 0; i < flightRule.size(); i++) {
+           if(!flightRule.get(i).isCorrectFlight(flight)){
+               return false;
+           }
+        }
+        return true;
+    }
 }
